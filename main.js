@@ -330,6 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
+        console.log('!inputNumber.classList.contains(\'error\')', !inputNumber.classList.contains('error'))
         if (!inputNumber.classList.contains('error')) {
             inputNumber.value = localCardNumber;
         }
