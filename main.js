@@ -345,6 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
+            inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
+
             if (!inputNumberValue.length) inputNumber.value = '';
         } else {
             inputNumber.classList.add('error');
@@ -392,7 +394,6 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param e
      */
     function inputMonthKeyDown(e) {
-        console.log('this is month keydown', e)
         if (e.currentTarget.value.length === 5 && Number.isInteger(Number(e.key)) && e.key !== ' ' && !e.currentTarget.classList.contains('error')) {
             inputCvv.focus();
         }
