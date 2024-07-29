@@ -221,37 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
     inputNumber.addEventListener("keydown", inputNumberKeyDown);
     inputMonth.addEventListener("keydown", inputMonthKeyDown)
 
-
-    /**
-     * Getting publicKey from API
-     */
-    async function importPublicKey() {
-        return await fetch(apiPublicKeyUrl)
-            .then((response) => {
-                return response.json();
-            })
-            .then(async (object) => {
-                return await window.crypto.subtle.importKey(
-                    "jwk",
-                    object.cardEncryptKey.jwk,
-                    object.cardEncryptKey.alg,
-                    false,
-                    ["encrypt"]
-                );
-            })
-            .catch(function (err) {
-                console.error(err);
-            });
-    }
-
-    /**
-     * Importing PublicKey
-     */
-    let PublicKeyObject = null;
-    importPublicKey().then(publicKey => {
-        PublicKeyObject = publicKey;
-    });
-
     /**
      * Credit card validation
      */
