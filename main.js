@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
     inputCvv.addEventListener('blur', startValidateForm);
 
     inputNumber.addEventListener("keydown", inputNumberKeyDown);
-    // inputMonth.addEventListener("keydown", inputMonthKeyDown)
+    inputMonth.addEventListener("keydown", inputMonthKeyDown)
 
     /**
      * Credit card validation
