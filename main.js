@@ -406,13 +406,17 @@ document.addEventListener("DOMContentLoaded", () => {
      * Blur handler for number input
      */
     function inputNumberBlur() {
+        console.log('this is val', inputNumber.value)
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
+        console.log(inputNumberValue.length, currentMaxLength, inputNumberValue.length === currentMaxLength, inputNumberValue, luhnAlgorithm(inputNumberValue))
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
             inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
+
+            console.log(localCardNumber)
 
             if (!inputNumberValue.length) inputNumber.value = '';
         } else {
