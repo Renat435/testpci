@@ -11,5 +11,32 @@
     <input name="credit-number" class="cc-number" type="tel" pattern="\d*" maxlength="19" placeholder="Card Number"/>
     <input name="credit-expires" class="cc-expires" type="tel" pattern="\d*" maxlength="7" placeholder="MM / YY"/>
     <input name="credit-cvc" class="cc-cvc" type="tel" pattern="\d*" maxlength="4" placeholder="CVC"/>
+
+    <div class="card">
+        <input
+                class="card__input card__input-number"
+                type="text"
+                placeholder="CARD NUMBER"
+                maxlength="19"
+                inputmode="numeric"
+        >
+        <input
+                class="card__input card__input-month"
+                type="text"
+                placeholder="MM/YY"
+                maxlength="5"
+                inputmode="numeric"
+        >
+        <input
+                class="card__input card__input-cvv"
+                type="text"
+                placeholder="CVC"
+                maxlength="3"
+                inputmode="numeric"
+        >
+    </div>
+
+
+    <script src="main.js"></script>
 </body>
 </html>
