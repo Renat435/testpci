@@ -101,20 +101,6 @@ function replaceValueFunction(match, group1, group2, group3) {
 
 
 /**
- * Get pcidss url
- * @param null
- * @returns {string}
- */
-function pcidssURL() {
-    if (!window.location.hostname.startsWith("secure.")) return new URL(pcidss_url).href;
-    return new URL(window.location.origin).href;
-}
-
-
-let cardCurrent = '';
-
-
-/**
  * Luhn algorithm to validate card
  * @param cardNumber
  * @returns {boolean}
@@ -211,8 +197,6 @@ const typeOfCard = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    const apiPublicKeyUrl = new URL("keys", pcidssURL()).href;
-
     const inputNumber = document.querySelector(".card__input-number");
     const inputMonth = document.querySelector(".card__input-month");
     const inputCvv = document.querySelector(".card__input-cvv");
@@ -261,33 +245,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Message encryption
-     */
-    async function encryptMessage(message, publicKey) {
-        let enc = new TextEncoder();
-        let encoded = enc.encode(message);
-
-        return await window.crypto.subtle.encrypt(
-            {
-                name: PublicKeyObject.algorithm.name
-            },
-            PublicKeyObject,
-            encoded
-        )
-            .catch(function (err) {
-                console.error(err);
-            });
-    }
-
-    /**
      * Importing PublicKey
      */
     let PublicKeyObject = null;
     importPublicKey().then(publicKey => {
         PublicKeyObject = publicKey;
     });
-
-
 
     /**
      * Credit card validation
@@ -475,44 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
         validateForm(localCardNumber.length === currentMaxLength && inputMonth.value.length === 5 && (inputCvv.value.length === 3 || inputCvv.style.display === "none"));
     }
 
-    /**
-     * Converting array buffer in string
-     * @param buffer
-     * @returns {string}
-     */
-    function ab2str(buf) {
-        return String.fromCharCode.apply(null, new Uint8Array(buf));
-    }
-
-
     //TODO: refactor this function and call func
     function validateForm(isValid) {
-        if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
-            const expiry = inputMonth.value.split("/");
-            const cardCredentials = JSON.stringify({
-                pan: localCardNumber,
-                cvv: inputCvv.value,
-                exp_month: Number(expiry[0]),
-                exp_year: Number(expiry[1])
-            });
-
-            const cardObject = {
-                "card": {
-                    "encrypted_data": "",
-                },
-            };
-            encryptMessage(cardCredentials, PublicKeyObject.publicKey).then(encryptedMessage => {
-                const encryptedMessageString = ab2str(encryptedMessage);
-                const encryptedBase64 = window.btoa(encryptedMessageString);
-                cardObject['card']['encrypted_data'] = encryptedBase64;
-                window.parent.postMessage(JSON.stringify(cardObject), "*");
-            });
-        }
-        else {
-            window.parent.postMessage(JSON.stringify({
-                message: 'invalid',
-            }), "*");
-        }
 
     }
 
