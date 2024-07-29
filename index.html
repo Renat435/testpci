@@ -8,14 +8,31 @@
     <title>Document</title>
 </head>
 <body>
-<!--    <input name="credit-number" class="cc-number" type="tel" pattern="\d*" maxlength="19" placeholder="Card Number"/>-->
-<!--    <input name="credit-expires" class="cc-expires" type="tel" pattern="\d*" maxlength="7" placeholder="MM / YY"/>-->
-<!--    <input name="credit-cvc" class="cc-cvc" type="tel" pattern="\d*" maxlength="4" placeholder="CVC"/>-->
 
     <div class="card">
+        <div class="card__img">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 23.9">
+                <defs>
+                    <style>.cls-1 {
+                        fill: #4a5b5b;
+                    }
+
+                    .cls-2 {
+                        fill: #fbfbfb;
+                    }</style>
+                </defs>
+                <g id="Слой_2" data-name="Слой 2">
+                    <g id="Слой_1-2" data-name="Слой 1">
+                        <rect class="cls-1" width="37" height="23.9" rx="4.54"/>
+                        <rect class="cls-2" x="5.51" y="8.86" width="25.98" height="1.57"/>
+                        <rect class="cls-2" x="24.43" y="14.37" width="7.06" height="1.57"/>
+                        <rect class="cls-2" x="14.17" y="14.37" width="7.06" height="1.57"/>
+                    </g>
+                </g>
+            </svg>
+        </div>
         <input
                 class="card__input card__input-number"
-                name="credit-number"
                 type="text"
                 placeholder="CARD NUMBER"
                 maxlength="19"
@@ -23,25 +40,19 @@
         >
         <input
                 class="card__input card__input-month"
-                name="credit-expires"
                 type="text"
                 placeholder="MM/YY"
                 maxlength="5"
                 inputmode="numeric"
         >
-
         <input
                 class="card__input card__input-cvv"
-                name="credit-cvc"
                 type="text"
                 placeholder="CVC"
                 maxlength="3"
                 inputmode="numeric"
         >
     </div>
-
-gggggjjjjj
-
 
     <script src="main.js"></script>
 </body>
