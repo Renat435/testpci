@@ -230,15 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
 
-        if (cardInputValue.length === currentMaxLength) {
-            if (luhnAlgorithm(cardInputValue)) {
-                inputNumber.classList.remove('error');
-                inputMonth.focus();
-            } else {
-                inputNumber.classList.add('error');
-            }
-        }
-
         let cardNumber = cardInputValue.replace(/\D/g, "");
         let maxLength = currentMaxLength;
         updateCardImage(cardNumber);
@@ -257,6 +248,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if(cardInputValue.length === currentMaxLength && luhnAlgorithm(cardInputValue)) {
                 inputNumber.blur();
                 inputMonth.focus();
+            }
+        }
+
+        if (inputNumber.value.length === currentMaxLength) {
+            console.log('all ok')
+            if (luhnAlgorithm(cardInputValue)) {
+                inputNumber.classList.remove('error');
+                inputMonth.focus();
+            } else {
+                inputNumber.classList.add('error');
             }
         }
 
