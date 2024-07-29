@@ -224,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Credit card validation
      */
     function handleCardInput() {
+        console.log('inputNumber', inputNumber.value)
         let cardInputValue = inputNumber.value;
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
@@ -279,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Expiry date validation
      */
     function handleMonthInput() {
+        console.log('inputMonth', inputMonth.value)
         let dateValue = inputMonth.value;
 
         dateValue = dateValue.replace(/\D/g, '');
@@ -304,6 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * CVV code validation
      */
     function handleCvvInput() {
+        console.log('inputCvv', inputCvv.value)
         const cvvRegex = /^[0-9]{3,4}$/;
 
         let cvvValue = inputCvv.value = inputCvv.value.replace(/\D/g, '');
@@ -342,8 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
-            inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
-
             if (!inputNumberValue.length) inputNumber.value = '';
         } else {
             inputNumber.classList.add('error');
