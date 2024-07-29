@@ -293,6 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Credit card validation
      */
     function handleCardInput() {
+        console.log('this is funcking input', inputNumber.value)
         let cardInputValue = inputNumber.value;
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
