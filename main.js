@@ -411,7 +411,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //TODO: refactor this function and call func
     function validateForm(isValid) {
-
+        if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
+            console.log('postmessage ok')
+        }
+        else {
+            console.log('postmessage error')
+        }
     }
 
 });
