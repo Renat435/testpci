@@ -99,7 +99,6 @@ function replaceValueFunction(match, group1, group2, group3) {
     return result;
 }
 
-
 /**
  * Luhn algorithm to validate card
  * @param cardNumber
@@ -197,6 +196,8 @@ const typeOfCard = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    const apiPublicKeyUrl = new URL("keys", pcidssURL()).href;
+
     const inputNumber = document.querySelector(".card__input-number");
     const inputMonth = document.querySelector(".card__input-month");
     const inputCvv = document.querySelector(".card__input-cvv");
@@ -221,17 +222,39 @@ document.addEventListener("DOMContentLoaded", () => {
     inputNumber.addEventListener("keydown", inputNumberKeyDown);
     inputMonth.addEventListener("keydown", inputMonthKeyDown)
 
+
+    /**
+     * Getting publicKey from API
+     */
+    async function importPublicKey() {
+        return await fetch(apiPublicKeyUrl)
+            .then((response) => {
+                return response.json();
+            })
+            .then(async (object) => {
+                return await window.crypto.subtle.importKey(
+                    "jwk",
+                    object.cardEncryptKey.jwk,
+                    object.cardEncryptKey.alg,
+                    false,
+                    ["encrypt"]
+                );
+            })
+            .catch(function (err) {
+                console.error(err);
+            });
+    }
+
     /**
      * Credit card validation
      */
     function handleCardInput() {
-        console.log('this is funcking input', inputNumber.value)
-        let cardInputValue = inputNumber.value;
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
 
-        let cardNumber = cardInputValue.replace(/\D/g, "");
+        let cardNumber = inputNumber.value.replace(/\D/g, "");
         let maxLength = currentMaxLength;
+        const luhnResult = luhnAlgorithm(inputNumber.value);
         updateCardImage(cardNumber);
 
         if (maxLength !== currentMaxLength) {
@@ -243,21 +266,20 @@ document.addEventListener("DOMContentLoaded", () => {
             typeOfCard[currentMaxLength].replaceValue
         );
 
-        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
-            selectionStart += 3;
-            if(cardInputValue.length === currentMaxLength && luhnAlgorithm(cardInputValue)) {
-                inputNumber.blur();
-                inputMonth.focus();
-            }
-        }
-
         if (inputNumber.value.length === currentMaxLength) {
-            console.log('all ok')
-            if (luhnAlgorithm(cardInputValue)) {
+            if (luhnResult) {
                 inputNumber.classList.remove('error');
                 inputMonth.focus();
             } else {
                 inputNumber.classList.add('error');
+            }
+        }
+
+        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
+            selectionStart += 3;
+            if(inputNumber.value.length === currentMaxLength && luhnResult) {
+                inputNumber.blur();
+                inputMonth.focus();
             }
         }
 
@@ -331,7 +353,8 @@ document.addEventListener("DOMContentLoaded", () => {
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
-        console.log('!inputNumber.classList.contains(\'error\')', !inputNumber.classList.contains('error'))
+        console.log(localCardNumber)
+
         if (!inputNumber.classList.contains('error')) {
             inputNumber.value = localCardNumber;
         }
@@ -341,17 +364,14 @@ document.addEventListener("DOMContentLoaded", () => {
      * Blur handler for number input
      */
     function inputNumberBlur() {
-        console.log('this is val', inputNumber.value)
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
-        console.log(inputNumberValue.length, currentMaxLength, inputNumberValue.length === currentMaxLength, inputNumberValue, luhnAlgorithm(inputNumberValue))
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
-            inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
-
             console.log(localCardNumber)
+            inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
 
             if (!inputNumberValue.length) inputNumber.value = '';
         } else {
@@ -412,11 +432,12 @@ document.addEventListener("DOMContentLoaded", () => {
     //TODO: refactor this function and call func
     function validateForm(isValid) {
         if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
-            console.log('postmessage ok')
+            console.log('all ok')
         }
         else {
-            console.log('postmessage error')
+            console.log('error')
         }
+
     }
 
 });
