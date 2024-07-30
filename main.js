@@ -408,10 +408,10 @@ document.addEventListener("DOMContentLoaded", () => {
     function validateForm(isValid) {
         if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
             inputNumber.blur();
-            inputMonth.classList.remove('hide');
-            inputCvv.classList.remove('hide');
             inputMonth.blur();
             inputCvv.blur();
+            inputMonth.classList.remove('hide');
+            inputCvv.classList.remove('hide');
             console.log('ok')
         }
         else {
