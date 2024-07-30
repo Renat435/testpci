@@ -223,7 +223,10 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * Credit card validation
      */
-    function handleCardInput() {
+    function handleCardInput(e) {
+
+        console.log(e);
+
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
 
@@ -241,27 +244,22 @@ document.addEventListener("DOMContentLoaded", () => {
             typeOfCard[currentMaxLength].replaceValue
         );
 
-        console.log('this is')
-
         if (inputNumber.value.length === currentMaxLength) {
-            console.log(luhnResult)
             if (luhnResult) {
                 inputNumber.classList.remove('error');
                 inputMonth.focus();
-                console.log('luhn true')
-                return;
             } else {
                 inputNumber.classList.add('error');
             }
         }
 
-        // if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
-        //     selectionStart += 3;
-        //     if(inputNumber.value.length === currentMaxLength && luhnResult) {
-        //         inputNumber.blur();
-        //         inputMonth.focus();
-        //     }
-        // }
+        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
+            selectionStart += 3;
+            if(inputNumber.value.length === currentMaxLength && luhnResult) {
+                inputNumber.blur();
+                inputMonth.focus();
+            }
+        }
 
         inputNumber.setSelectionRange(selectionStart, selectionStart);
     }
@@ -330,12 +328,11 @@ document.addEventListener("DOMContentLoaded", () => {
      * Focus handler for number input
      */
     function inputNumberFocus() {
+        console.log('onFocus')
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
-        console.log('on the focus')
         if (!inputNumber.classList.contains('error')) {
-            console.log(123123, localCardNumber)
             inputNumber.value = localCardNumber;
         }
     }
@@ -344,14 +341,13 @@ document.addEventListener("DOMContentLoaded", () => {
      * Blur handler for number input
      */
     function inputNumberBlur() {
+        console.log('onBlur')
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
-        console.log(inputNumberValue.length, currentMaxLength)
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
-            console.log(localCardNumber)
             inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
 
             if (!inputNumberValue.length) inputNumber.value = '';
@@ -412,9 +408,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //TODO: refactor this function and call func
     function validateForm(isValid) {
-        console.log(isValid, inputNumber, inputMonth, inputCvv)
         if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
-            console.log('all ok')
+            console.log('ok')
         }
         else {
             console.log('error')
