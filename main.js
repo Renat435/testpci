@@ -240,6 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (luhnResult) {
                 inputNumber.classList.remove('error');
                 inputMonth.focus();
+                return;
             } else {
                 inputNumber.classList.add('error');
             }
