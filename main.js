@@ -255,16 +255,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
-        //     selectionStart += 3;
-        //     if(inputNumber.value.length === currentMaxLength && luhnResult) {
-        //         inputNumber.blur();
-        //         inputMonth.focus();
-        //         return;
-        //     }
-        // }
-        //
-        // inputNumber.setSelectionRange(selectionStart, selectionStart);
+        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
+            selectionStart += 3;
+            if(inputNumber.value.length === currentMaxLength && luhnResult) {
+                inputNumber.blur();
+                inputMonth.focus();
+                return;
+            }
+        }
+
+        inputNumber.setSelectionRange(selectionStart, selectionStart);
     }
 
     /**
@@ -348,6 +348,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
+
+        console.log(inputNumberValue, inputNumberValue.length, currentMaxLength, luhnAlgorithm(inputNumberValue))
+
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
