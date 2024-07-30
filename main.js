@@ -236,6 +236,15 @@ document.addEventListener("DOMContentLoaded", () => {
             inputNumber.maxLength = currentMaxLength;
         }
 
+        if (inputNumber.value.length === currentMaxLength) {
+            if (luhnResult) {
+                inputNumber.classList.remove('error');
+                inputMonth.focus();
+            } else {
+                inputNumber.classList.add('error');
+            }
+        }
+
         inputNumber.value = cardNumber.replace(
             typeOfCard[currentMaxLength].searchValue,
             typeOfCard[currentMaxLength].replaceValue
@@ -246,15 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if(inputNumber.value.length === currentMaxLength && luhnResult) {
                 inputNumber.blur();
                 inputMonth.focus();
-            }
-        }
-
-        if (inputNumber.value.length === currentMaxLength) {
-            if (luhnResult) {
-                inputNumber.classList.remove('error');
-                inputMonth.focus();
-            } else {
-                inputNumber.classList.add('error');
             }
         }
 
