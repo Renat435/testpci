@@ -407,9 +407,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //TODO: refactor this function and call func
     function validateForm(isValid) {
         if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
-            inputNumber.blur();
-            inputMonth.blur();
-            inputCvv.blur();
+            document.activeElement.blur();
             inputMonth.classList.remove('hide');
             inputCvv.classList.remove('hide');
             console.log('ok')
