@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
             inputNumber.value = localCardNumber.slice(0, 4) + ' ... ' + localCardNumber.slice(-4);
 
             if (!inputNumberValue.length) inputNumber.value = '';
-        } else if (!inputNumberValue.contains(' ... ')) {
+        } else if (!inputNumberValue.includes(' ... ')) {
             inputNumber.classList.add('error');
         }
     }
