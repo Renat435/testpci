@@ -255,13 +255,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
-            selectionStart += 3;
-            if(inputNumber.value.length === currentMaxLength && luhnResult) {
-                inputNumber.blur();
-                inputMonth.focus();
-            }
-        }
+        // if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
+        //     selectionStart += 3;
+        //     if(inputNumber.value.length === currentMaxLength && luhnResult) {
+        //         inputNumber.blur();
+        //         inputMonth.focus();
+        //     }
+        // }
 
         inputNumber.setSelectionRange(selectionStart, selectionStart);
     }
