@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     function handleCardInput(e) {
 
-        console.log(e);
+        // console.log(e);
 
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
 
-        console.log(inputNumberValue, inputNumberValue.length, currentMaxLength, luhnAlgorithm(inputNumberValue))
+        // console.log(inputNumberValue, inputNumberValue.length, currentMaxLength, luhnAlgorithm(inputNumberValue))
 
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
