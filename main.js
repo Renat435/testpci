@@ -223,10 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /**
      * Credit card validation
      */
-    function handleCardInput(e) {
-
-        // console.log(e);
-
+    function handleCardInput() {
         let selectionStart = inputNumber.selectionStart;
         let oldValue = inputNumber.value;
 
@@ -247,9 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputNumber.value.length === currentMaxLength) {
             if (luhnResult) {
                 inputNumber.classList.remove('error');
-                inputNumber.blur();
                 inputMonth.focus();
-                return;
             } else {
                 inputNumber.classList.add('error');
             }
@@ -260,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if(inputNumber.value.length === currentMaxLength && luhnResult) {
                 inputNumber.blur();
                 inputMonth.focus();
-                return;
             }
         }
 
@@ -331,7 +325,6 @@ document.addEventListener("DOMContentLoaded", () => {
      * Focus handler for number input
      */
     function inputNumberFocus() {
-        console.log('onFocus', inputNumber)
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
@@ -344,14 +337,9 @@ document.addEventListener("DOMContentLoaded", () => {
      * Blur handler for number input
      */
     function inputNumberBlur() {
-        console.log('onBlur')
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
-
-        console.log('inputNumberValue', inputNumberValue)
-        // console.log(inputNumberValue, inputNumberValue.length, currentMaxLength, luhnAlgorithm(inputNumberValue))
-
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
