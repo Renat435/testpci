@@ -236,7 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
             inputNumber.maxLength = currentMaxLength;
         }
 
+        inputNumber.value = cardNumber.replace(
+            typeOfCard[currentMaxLength].searchValue,
+            typeOfCard[currentMaxLength].replaceValue
+        );
+
         if (inputNumber.value.length === currentMaxLength) {
+            console.log(luhnResult)
             if (luhnResult) {
                 inputNumber.classList.remove('error');
                 inputMonth.focus();
@@ -246,11 +252,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 inputNumber.classList.add('error');
             }
         }
-
-        inputNumber.value = cardNumber.replace(
-            typeOfCard[currentMaxLength].searchValue,
-            typeOfCard[currentMaxLength].replaceValue
-        );
 
         if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
             selectionStart += 3;
