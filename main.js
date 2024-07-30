@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * Focus handler for number input
      */
     function inputNumberFocus() {
-        console.log('onFocus')
+        console.log('onFocus', inputNumber)
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
