@@ -405,6 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //TODO: refactor this function and call func
     function validateForm(isValid) {
+        console.log(isValid, inputNumber, inputMonth, inputCvv)
         if (isValid && !inputNumber.classList.contains('error') && !inputMonth.classList.contains('error') && !inputCvv.classList.contains('error')) {
             console.log('all ok')
         }
