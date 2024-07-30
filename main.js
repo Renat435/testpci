@@ -328,9 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
         inputMonth.classList.add('hide');
         inputCvv.classList.add('hide');
 
-        console.log(localCardNumber)
-
         if (!inputNumber.classList.contains('error')) {
+            console.log(123123, localCardNumber)
             inputNumber.value = localCardNumber;
         }
     }
