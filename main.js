@@ -247,19 +247,22 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputNumber.value.length === currentMaxLength) {
             if (luhnResult) {
                 inputNumber.classList.remove('error');
+                inputNumber.blur();
                 inputMonth.focus();
+                return;
             } else {
                 inputNumber.classList.add('error');
             }
         }
 
-        // if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
-        //     selectionStart += 3;
-        //     if(inputNumber.value.length === currentMaxLength && luhnResult) {
-        //         inputNumber.blur();
-        //         inputMonth.focus();
-        //     }
-        // }
+        if (selectionStart === oldValue.length && oldValue.slice(0, -1) + ' ' + oldValue.slice(-1, -2)) {
+            selectionStart += 3;
+            if(inputNumber.value.length === currentMaxLength && luhnResult) {
+                inputNumber.blur();
+                inputMonth.focus();
+                return;
+            }
+        }
 
         inputNumber.setSelectionRange(selectionStart, selectionStart);
     }
