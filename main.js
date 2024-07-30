@@ -245,6 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (luhnResult) {
                 inputNumber.classList.remove('error');
                 inputMonth.focus();
+                return;
             } else {
                 inputNumber.classList.add('error');
             }
@@ -255,6 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if(inputNumber.value.length === currentMaxLength && luhnResult) {
                 inputNumber.blur();
                 inputMonth.focus();
+                return;
             }
         }
 
