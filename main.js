@@ -196,8 +196,6 @@ const typeOfCard = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    const apiPublicKeyUrl = new URL("keys", pcidssURL()).href;
-
     const inputNumber = document.querySelector(".card__input-number");
     const inputMonth = document.querySelector(".card__input-month");
     const inputCvv = document.querySelector(".card__input-cvv");
@@ -221,29 +219,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     inputNumber.addEventListener("keydown", inputNumberKeyDown);
     inputMonth.addEventListener("keydown", inputMonthKeyDown)
-
-
-    /**
-     * Getting publicKey from API
-     */
-    async function importPublicKey() {
-        return await fetch(apiPublicKeyUrl)
-            .then((response) => {
-                return response.json();
-            })
-            .then(async (object) => {
-                return await window.crypto.subtle.importKey(
-                    "jwk",
-                    object.cardEncryptKey.jwk,
-                    object.cardEncryptKey.alg,
-                    false,
-                    ["encrypt"]
-                );
-            })
-            .catch(function (err) {
-                console.error(err);
-            });
-    }
 
     /**
      * Credit card validation
