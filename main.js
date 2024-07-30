@@ -349,6 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
 
+        console.log(document.activeElement)
         // console.log(inputNumberValue, inputNumberValue.length, currentMaxLength, luhnAlgorithm(inputNumberValue))
 
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
