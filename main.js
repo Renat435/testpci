@@ -241,6 +241,8 @@ document.addEventListener("DOMContentLoaded", () => {
             typeOfCard[currentMaxLength].replaceValue
         );
 
+        console.log('this is')
+
         if (inputNumber.value.length === currentMaxLength) {
             console.log(luhnResult)
             if (luhnResult) {
