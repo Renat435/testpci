@@ -342,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let inputNumberValue = inputNumber.value;
         inputMonth.classList.remove('hide');
         inputCvv.classList.remove('hide');
+        console.log(inputNumberValue.length, currentMaxLength)
         if (inputNumberValue.length === currentMaxLength && luhnAlgorithm(inputNumberValue)) {
             inputNumber.classList.remove('error');
             localCardNumber = inputNumber.value;
